@@ -224,6 +224,7 @@ func (p Provider) CurrentAuthenticationModesOffered(
 	endpoints map[string]struct{},
 	currentAuthStep int,
 ) ([]string, error) {
+	slog.Debug(fmt.Sprintf("In CurrentAuthenticationModesOffered: sessionMode=%q, supportedAuthModes=%q, tokenExists=%t, providerReachable=%t, endpoints=%q, currentAuthStep=%d\n", sessionMode, supportedAuthModes, tokenExists, providerReachable, endpoints, currentAuthStep))
 	var offeredModes []string
 	switch sessionMode {
 	case "passwd":
@@ -246,6 +247,7 @@ func (p Provider) CurrentAuthenticationModesOffered(
 			offeredModes = []string{"newpassword"}
 		}
 	}
+	slog.Debug(fmt.Sprintf("Offered modes: %q", offeredModes))
 
 	for _, mode := range offeredModes {
 		if _, ok := supportedAuthModes[mode]; !ok {
